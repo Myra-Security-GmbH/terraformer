@@ -347,7 +347,7 @@ require (
 	cloud.google.com/go/cloudtasks v1.3.0
 	cloud.google.com/go/iam v0.3.0
 	cloud.google.com/go/monitoring v1.4.0
-	github.com/Myra-Security-GmbH/myrasec-go/v2 v2.13.1
+	github.com/Myra-Security-GmbH/myrasec-go/v2 v2.19.0
 	github.com/manicminer/hamilton v0.43.0
 )
 
