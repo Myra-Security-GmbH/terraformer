@@ -1,10 +1,10 @@
 ### Use with Myra Security
 
-Example using a Myra Security API Key and corresponding Token:
+Example using a Myra Security API Key and corresponding API Secret:
 
 ```
-export MYRASEC_API_SECRET=[MYRASEC_API_SECRET]
 export MYRASEC_API_KEY=[MYRASEC_API_KEY]
+export MYRASEC_API_SECRET=[MYRASEC_API_SECRET]
 ./terraformer import myrasec --resources=domain
 ```
 
