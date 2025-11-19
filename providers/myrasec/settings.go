@@ -9,16 +9,12 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
 // SettingGenerator
-//
 type SettingsGenerator struct {
 	MyrasecService
 }
 
-//
 // createSettingResources
-//
 func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -41,13 +37,12 @@ func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, v
 		[]string{},
 		map[string]interface{}{},
 	)
+	r.IgnoreKeys = append(r.IgnoreKeys, "cdn")
 	g.Resources = append(g.Resources, r)
 	return nil
 }
 
-//
 // InitResources
-//
 func (g *SettingsGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 

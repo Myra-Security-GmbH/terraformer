@@ -10,16 +10,12 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
 // DomainGenerator
-//
 type DomainGenerator struct {
 	MyrasecService
 }
 
-//
 // createDomainResource
-//
 func (g *DomainGenerator) createDomainResource(api *mgo.API, domain mgo.Domain, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -33,15 +29,13 @@ func (g *DomainGenerator) createDomainResource(api *mgo.API, domain mgo.Domain, 
 		map[string]interface{}{},
 	)
 
-	d.IgnoreKeys = append(d.IgnoreKeys, "^metadata")
+	d.IgnoreKeys = append(d.IgnoreKeys, "paused")
 	g.Resources = append(g.Resources, d)
 
 	return nil
 }
 
-//
 // InitResources
-//
 func (g *DomainGenerator) InitResources() error {
 	var wg = sync.WaitGroup{}
 
@@ -63,9 +57,7 @@ func (g *DomainGenerator) InitResources() error {
 	return nil
 }
 
-//
 // createResourcesPerDomain
-//
 func createResourcesPerDomain(api *mgo.API, funcs []func(*mgo.API, mgo.Domain, *sync.WaitGroup) error, wg *sync.WaitGroup) error {
 
 	page := 1
@@ -101,9 +93,7 @@ func getWaitChannel() chan struct{} {
 	return make(chan struct{}, runtime.NumCPU()/2)
 }
 
-//
 // createResourcesPerSubDomain
-//
 func createResourcesPerSubDomain(api *mgo.API, funcs []func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error, wg *sync.WaitGroup, onDomainLevel bool) error {
 	page := 1
 	pageSize := 250
@@ -150,9 +140,7 @@ func createResourcesPerSubDomain(api *mgo.API, funcs []func(*mgo.API, int, mgo.V
 	return nil
 }
 
-//
 // createResourcesPerVHost
-//
 func createResourcesPerVHost(api *mgo.API, domain mgo.Domain, funcs []func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
