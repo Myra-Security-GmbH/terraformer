@@ -20,7 +20,7 @@ func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, v
 
 	params := map[string]string{}
 
-	s, err := api.ListSettings(domainId, vhost.Label, params)
+	s, err := api.ListSettingsFull(domainId, vhost.Label, params)
 	if err != nil {
 		return err
 	}
@@ -32,14 +32,32 @@ func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, v
 		"myrasec",
 		map[string]string{
 			"subdomain_name": vhost.Label,
-			"only_https":     strconv.FormatBool(s.OnlyHTTPS),
 		},
 		[]string{},
 		map[string]interface{}{},
 	)
+
+	appendIgnoreKeys(s, r)
+
 	r.IgnoreKeys = append(r.IgnoreKeys, "cdn")
 	g.Resources = append(g.Resources, r)
 	return nil
+}
+
+// in terraform we only want the attributes that are configured on the current level, all other attributes should be ignored
+func appendIgnoreKeys(response any, r terraformutils.Resource) {
+	data := response.(*map[string]any)
+	domain := (*data)["domain"]
+	parent := (*data)["parent"]
+
+	domainSettings := domain.(map[string]any)
+	parentSettings := parent.(map[string]any)
+	for i := range parentSettings {
+		if _, ok := domainSettings[i]; !ok {
+			r.IgnoreKeys = append(r.IgnoreKeys, i)
+		}
+
+	}
 }
 
 // InitResources
