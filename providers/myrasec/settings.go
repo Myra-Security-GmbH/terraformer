@@ -50,13 +50,12 @@ func appendIgnoreKeys(response any, r terraformutils.Resource) {
 	domain := (*data)["domain"]
 	parent := (*data)["parent"]
 
-	domainSettings := domain.(map[string]any)
+	domainSettings, _ := domain.(map[string]any)
 	parentSettings := parent.(map[string]any)
 	for i := range parentSettings {
 		if _, ok := domainSettings[i]; !ok {
 			r.IgnoreKeys = append(r.IgnoreKeys, i)
 		}
-
 	}
 }
 
