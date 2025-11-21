@@ -43,7 +43,7 @@ func (g *DNSGenerator) createDnsResources(api *mgo.API, domain mgo.Domain, wg *s
 					"domain_name": domain.Name,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 
 			g.Resources = append(g.Resources, r)

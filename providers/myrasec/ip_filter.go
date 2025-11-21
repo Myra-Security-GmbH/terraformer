@@ -43,7 +43,7 @@ func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, 
 					"subdomain_name": vhost.Label,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}

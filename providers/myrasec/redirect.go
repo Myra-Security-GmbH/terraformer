@@ -9,16 +9,12 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
 // RedirectGenerator
-//
 type RedirectGenerator struct {
 	MyrasecService
 }
 
-//
 // createRedirectResources
-//
 func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -47,7 +43,7 @@ func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainId int, 
 					"subdomain_name": redirect.SubDomainName,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}
@@ -59,9 +55,7 @@ func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainId int, 
 	return nil
 }
 
-//
 // InitResources
-//
 func (g *RedirectGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 

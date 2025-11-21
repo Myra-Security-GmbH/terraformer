@@ -34,7 +34,7 @@ func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, v
 			"subdomain_name": vhost.Label,
 		},
 		[]string{},
-		map[string]interface{}{},
+		map[string]any{},
 	)
 
 	appendIgnoreKeys(s, r)

@@ -45,7 +45,7 @@ func (g *ErrorPageGenerator) createErrorPageResources(api *mgo.API, domain mgo.D
 					"content":        p.Content,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}

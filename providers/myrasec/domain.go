@@ -26,7 +26,7 @@ func (g *DomainGenerator) createDomainResource(api *mgo.API, domain mgo.Domain, 
 		"myrasec",
 		map[string]string{},
 		[]string{},
-		map[string]interface{}{},
+		map[string]any{},
 	)
 
 	d.IgnoreKeys = append(d.IgnoreKeys, "paused")

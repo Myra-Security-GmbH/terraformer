@@ -22,8 +22,8 @@ func (p *MyrasecProvider) GetName() string {
 }
 
 // GetProviderData
-func (p *MyrasecProvider) GetProviderData(arg ...string) map[string]interface{} {
-	return map[string]interface{}{}
+func (p *MyrasecProvider) GetProviderData(arg ...string) map[string]any {
+	return map[string]any{}
 }
 
 // GetResourceConnections

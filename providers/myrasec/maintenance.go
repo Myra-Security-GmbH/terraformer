@@ -9,16 +9,12 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
 // MaintenanceGenerator
-//
 type MaintenanceGenerator struct {
 	MyrasecService
 }
 
-//
 // createMaintenanceResources
-//
 func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -47,7 +43,7 @@ func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainId
 					"subdomain_name": vhost.Label,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}
@@ -59,9 +55,7 @@ func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainId
 	return nil
 }
 
-//
 // InitResources
-//
 func (g *MaintenanceGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 

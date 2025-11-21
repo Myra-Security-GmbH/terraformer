@@ -46,7 +46,7 @@ func (g *WafRuleGenerator) createWafRuleResources(api *mgo.API, domainId int, vh
 					"subdomain_name": w.SubDomainName,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			r.IgnoreKeys = append(r.IgnoreKeys, "sync")
 			g.Resources = append(g.Resources, r)

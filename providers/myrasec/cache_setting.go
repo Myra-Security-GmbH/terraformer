@@ -44,7 +44,7 @@ func (g *CacheSettingGenerator) createCacheSettingResources(api *mgo.API, domain
 					"subdomain_name": vhost.Label,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}
