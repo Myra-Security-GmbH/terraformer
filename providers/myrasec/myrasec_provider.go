@@ -22,7 +22,7 @@ func (p *MyrasecProvider) GetName() string {
 }
 
 // GetProviderData
-func (p *MyrasecProvider) GetProviderData(arg ...string) map[string]any {
+func (p *MyrasecProvider) GetProviderData(_ ...string) map[string]any {
 	return map[string]any{}
 }
 
