@@ -72,7 +72,10 @@ func createResourcesPerTag(api *mgo.API, funcs []func(*mgo.API, mgo.Tag, *sync.W
 		wg.Add(len(tags) * len(funcs))
 		for _, t := range tags {
 			for _, f := range funcs {
-				f(api, t, wg)
+				err := f(api, t, wg)
+				if err != nil {
+					return err
+				}
 			}
 		}
 		if len(tags) < pageSize {
