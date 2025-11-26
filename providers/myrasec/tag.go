@@ -13,7 +13,7 @@ type TagGenerator struct {
 	MyrasecService
 }
 
-func (g *TagGenerator) createTagResource(api *mgo.API, tag mgo.Tag, wg *sync.WaitGroup) error {
+func (g *TagGenerator) createTagResource(_ *mgo.API, tag mgo.Tag, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	t := terraformutils.NewResource(
