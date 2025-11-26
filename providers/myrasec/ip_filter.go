@@ -9,16 +9,12 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
 // IPFilterGenerator
-//
 type IPFilterGenerator struct {
 	MyrasecService
 }
 
-//
 // createIPFilterResources
-//
 func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
@@ -33,7 +29,7 @@ func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, 
 		params["page"] = strconv.Itoa(page)
 
 		filters, err := api.ListIPFilters(domainId, vhost.Label, params)
-		if err != err {
+		if err != nil {
 			return err
 		}
 
@@ -47,7 +43,7 @@ func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, 
 					"subdomain_name": vhost.Label,
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}
@@ -59,9 +55,7 @@ func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, 
 	return nil
 }
 
-//
 // InitResources
-//
 func (g *IPFilterGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 

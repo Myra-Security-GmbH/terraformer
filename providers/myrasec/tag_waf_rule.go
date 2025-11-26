@@ -9,17 +9,13 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-//
-// RateLimitGenerator
-//
-type RatelimitGenerator struct {
+// TagWafRuleGenerator
+type TagWafRuleGenerator struct {
 	MyrasecService
 }
 
-//
-// createRatelimitResources
-//
-func (g *RatelimitGenerator) createRatelimitResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+// createTagWafRuleResources
+func (g *TagWafRuleGenerator) createTagWafRuleResources(api *mgo.API, tag mgo.Tag, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -32,37 +28,37 @@ func (g *RatelimitGenerator) createRatelimitResources(api *mgo.API, domainId int
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		ratelimits, err := api.ListRateLimits(domainId, vhost.Label, params)
+		waf, err := api.ListTagWAFRules(tag.ID, params)
 		if err != nil {
 			return err
 		}
 
-		for _, rl := range ratelimits {
+		for _, w := range waf {
 			r := terraformutils.NewResource(
-				strconv.Itoa(rl.ID),
-				fmt.Sprintf("%s_%d", vhost.Label, rl.ID),
-				"myrasec_ratelimit",
+				strconv.Itoa(w.ID),
+				fmt.Sprintf("%s_%s_%d", tag.Name, w.Name, w.ID),
+				"myrasec_tag_waf_rule",
 				"myrasec",
 				map[string]string{
-					"subdomain_name": rl.SubDomainName,
+					"tag_id": strconv.Itoa(tag.ID),
 				},
 				[]string{},
-				map[string]interface{}{},
+				map[string]any{},
 			)
 			g.Resources = append(g.Resources, r)
 		}
-		if len(ratelimits) < pageSize {
+
+		if len(waf) < pageSize {
 			break
 		}
 		page++
 	}
+
 	return nil
 }
 
-//
 // InitResources
-//
-func (g *RatelimitGenerator) InitResources() error {
+func (g *TagWafRuleGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 
 	api, err := g.initializeAPI()
@@ -70,11 +66,11 @@ func (g *RatelimitGenerator) InitResources() error {
 		return err
 	}
 
-	funcs := []func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error{
-		g.createRatelimitResources,
+	funcs := []func(*mgo.API, mgo.Tag, *sync.WaitGroup) error{
+		g.createTagWafRuleResources,
 	}
 
-	err = createResourcesPerSubDomain(api, funcs, &wg, true)
+	err = createResourcesPerTag(api, funcs, &wg, "WAF")
 	if err != nil {
 		return err
 	}

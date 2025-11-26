@@ -1,6 +1,7 @@
 module github.com/GoogleCloudPlatform/terraformer
 
 go 1.24.0
+
 require (
 	cloud.google.com/go v0.116.0 // indirect
 	cloud.google.com/go/logging v1.12.0
@@ -325,7 +326,7 @@ require (
 	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/term v0.30.0 // indirect
-	golang.org/x/time v0.8.0 // indirect
+	golang.org/x/time v0.13.0 // indirect
 	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/grpc v1.67.3 // indirect
@@ -353,7 +354,7 @@ require (
 	cloud.google.com/go/iam v1.2.2
 	cloud.google.com/go/monitoring v1.21.2
 	github.com/DataDog/datadog-api-client-go/v2 v2.11.0
-	github.com/Myra-Security-GmbH/myrasec-go/v2 v2.28.0
+	github.com/Myra-Security-GmbH/myrasec-go/v2 v2.47.0
 	github.com/bradleyfalzon/ghinstallation/v2 v2.1.0
 	github.com/manicminer/hamilton v0.44.0
 	github.com/opalsecurity/opal-go v1.0.19
@@ -370,7 +371,7 @@ require (
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/detectors/gcp v1.25.0 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/exporter/metric v0.48.1 // indirect
 	github.com/GoogleCloudPlatform/opentelemetry-operations-go/internal/resourcemapping v0.48.1 // indirect
-	github.com/Myra-Security-GmbH/signature v1.0.0 // indirect
+	github.com/Myra-Security-GmbH/signature v1.1.0 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect

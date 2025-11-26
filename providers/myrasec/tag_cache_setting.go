@@ -9,13 +9,13 @@ import (
 	mgo "github.com/Myra-Security-GmbH/myrasec-go/v2"
 )
 
-// DNSGenerator
-type DNSGenerator struct {
+// TagCacheSettingGenerator
+type TagCacheSettingGenerator struct {
 	MyrasecService
 }
 
-// createDnsResources
-func (g *DNSGenerator) createDnsResources(api *mgo.API, domain mgo.Domain, wg *sync.WaitGroup) error {
+// createTagCacheSettingResources
+func (g *TagCacheSettingGenerator) createTagCacheSettingResources(api *mgo.API, tag mgo.Tag, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -28,37 +28,36 @@ func (g *DNSGenerator) createDnsResources(api *mgo.API, domain mgo.Domain, wg *s
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		records, err := api.ListDNSRecords(domain.ID, params)
+		settings, err := api.ListTagCacheSettings(tag.ID, params)
+
 		if err != nil {
 			return err
 		}
 
-		for _, d := range records {
+		for _, s := range settings {
 			r := terraformutils.NewResource(
-				strconv.Itoa(d.ID),
-				fmt.Sprintf("%s_%d", domain.Name, d.ID),
-				"myrasec_dns_record",
+				strconv.Itoa(s.ID),
+				fmt.Sprintf("%s_%d", tag.Name, s.ID),
+				"myrasec_tag_cache_setting",
 				"myrasec",
 				map[string]string{
-					"domain_name": domain.Name,
+					"tag_id": strconv.Itoa(tag.ID),
 				},
 				[]string{},
 				map[string]any{},
 			)
-
 			g.Resources = append(g.Resources, r)
 		}
-		if len(records) < pageSize {
+		if len(settings) < pageSize {
 			break
 		}
 		page++
 	}
-
 	return nil
 }
 
 // InitResources
-func (g *DNSGenerator) InitResources() error {
+func (g *TagCacheSettingGenerator) InitResources() error {
 	wg := sync.WaitGroup{}
 
 	api, err := g.initializeAPI()
@@ -66,11 +65,10 @@ func (g *DNSGenerator) InitResources() error {
 		return err
 	}
 
-	funcs := []func(*mgo.API, mgo.Domain, *sync.WaitGroup) error{
-		g.createDnsResources,
+	funcs := []func(*mgo.API, mgo.Tag, *sync.WaitGroup) error{
+		g.createTagCacheSettingResources,
 	}
-
-	err = createResourcesPerDomain(api, funcs, &wg)
+	err = createResourcesPerTag(api, funcs, &wg, "CACHE")
 	if err != nil {
 		return err
 	}
