@@ -11,7 +11,7 @@ import (
 
 // SettingGenerator
 type SettingsGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createSettingResources

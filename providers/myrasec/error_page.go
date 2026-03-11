@@ -11,7 +11,7 @@ import (
 
 // ErrorPageGenerator
 type ErrorPageGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createErrorPageResources

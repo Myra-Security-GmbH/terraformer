@@ -11,7 +11,7 @@ import (
 
 // DNSGenerator
 type DNSGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createDNSResources

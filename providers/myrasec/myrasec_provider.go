@@ -12,7 +12,7 @@ type Provider struct {
 }
 
 // Init
-func (p *Provider) Init(args []string) error {
+func (p *Provider) Init(_ []string) error {
 	return nil
 }
 

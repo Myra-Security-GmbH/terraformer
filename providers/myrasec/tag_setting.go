@@ -12,7 +12,7 @@ import (
 
 // TagSettingGenerator
 type TagSettingGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createTagSettingResources

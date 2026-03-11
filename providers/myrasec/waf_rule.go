@@ -11,7 +11,7 @@ import (
 
 // WafRuleGenerator
 type WafRuleGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createWafRuleResources

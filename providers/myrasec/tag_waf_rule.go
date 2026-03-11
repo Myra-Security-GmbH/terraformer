@@ -11,7 +11,7 @@ import (
 
 // TagWafRuleGenerator
 type TagWafRuleGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createTagWafRuleResources

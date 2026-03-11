@@ -10,7 +10,7 @@ import (
 )
 
 type TagGenerator struct {
-	MyrasecService
+	Service
 }
 
 func (g *TagGenerator) createTagResource(_ *mgo.API, tag mgo.Tag, wg *sync.WaitGroup) error {

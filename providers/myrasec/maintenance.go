@@ -11,7 +11,7 @@ import (
 
 // MaintenanceGenerator
 type MaintenanceGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createMaintenanceResources

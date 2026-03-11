@@ -11,7 +11,7 @@ import (
 
 // CacheSettingGenerator
 type CacheSettingGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createCacheSettingResources

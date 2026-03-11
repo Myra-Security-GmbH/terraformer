@@ -11,7 +11,7 @@ import (
 
 // IPFilterGenerator
 type IPFilterGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createIPFilterResources

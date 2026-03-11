@@ -11,7 +11,7 @@ import (
 
 // RedirectGenerator
 type RedirectGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createRedirectResources

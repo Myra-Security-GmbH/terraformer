@@ -12,7 +12,7 @@ import (
 
 // DomainGenerator
 type DomainGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createDomainResource
@@ -129,7 +129,7 @@ func createResourcesPerSubDomain(api *mgo.API, funcs []func(*mgo.API, int, mgo.V
 			}
 			waitChan <- struct{}{}
 			count++
-			go func(count int, d mgo.Domain) {
+			go func(_ int, d mgo.Domain) {
 				_ = createResourcesPerVHost(api, d, funcs, wg)
 				<-waitChan
 			}(count, d)
@@ -169,7 +169,7 @@ func createResourcesPerVHost(api *mgo.API, domain mgo.Domain, funcs []func(*mgo.
 			for _, f := range funcs {
 				waitChan <- struct{}{}
 				count++
-				go func(count int, v mgo.VHost, f func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error) {
+				go func(_ int, v mgo.VHost, f func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error) {
 					_ = f(api, domain.ID, v, wg)
 					<-waitChan
 				}(count, v, f)

@@ -11,7 +11,7 @@ import (
 
 // TagCacheSettingGenerator
 type TagCacheSettingGenerator struct {
-	MyrasecService
+	Service
 }
 
 // createTagCacheSettingResources
