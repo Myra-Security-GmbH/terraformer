@@ -15,7 +15,7 @@ type MaintenanceGenerator struct {
 }
 
 // createMaintenanceResources
-func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -28,7 +28,7 @@ func (g *MaintenanceGenerator) createMaintenanceResources(api *mgo.API, domainId
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		maintenance, err := api.ListMaintenances(domainId, vhost.Label, params)
+		maintenance, err := api.ListMaintenances(domainID, vhost.Label, params)
 		if err != nil {
 			return err
 		}

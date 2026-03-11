@@ -15,7 +15,7 @@ type RedirectGenerator struct {
 }
 
 // createRedirectResources
-func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -28,7 +28,7 @@ func (g *RedirectGenerator) createRedirectResources(api *mgo.API, domainId int, 
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		redirects, err := api.ListRedirects(domainId, vhost.Label, params)
+		redirects, err := api.ListRedirects(domainID, vhost.Label, params)
 		if err != nil {
 			return err
 		}

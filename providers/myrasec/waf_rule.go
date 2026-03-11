@@ -15,7 +15,7 @@ type WafRuleGenerator struct {
 }
 
 // createWafRuleResources
-func (g *WafRuleGenerator) createWafRuleResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *WafRuleGenerator) createWafRuleResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -31,7 +31,7 @@ func (g *WafRuleGenerator) createWafRuleResources(api *mgo.API, domainId int, vh
 			params["subDomain"] = vhost.Label
 		}
 
-		waf, err := api.ListWAFRules(domainId, params)
+		waf, err := api.ListWAFRules(domainID, params)
 		if err != nil {
 			return err
 		}

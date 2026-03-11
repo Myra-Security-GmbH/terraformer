@@ -78,7 +78,7 @@ func createResourcesPerDomain(api *mgo.API, funcs []func(*mgo.API, mgo.Domain, *
 		wg.Add(len(domains) * len(funcs))
 		for _, d := range domains {
 			for _, f := range funcs {
-				f(api, d, wg)
+				_ = f(api, d, wg)
 			}
 		}
 		if len(domains) < pageSize {
@@ -115,20 +115,22 @@ func createResourcesPerSubDomain(api *mgo.API, funcs []func(*mgo.API, int, mgo.V
 
 		wg.Add(len(domains))
 		for _, d := range domains {
-			// try to load data for ALL-{domainId}.
+			// try to load data for ALL-{domainID}.
 			if onDomainLevel {
 				wg.Add(len(funcs))
 				for _, f := range funcs {
-					go f(api, d.ID, mgo.VHost{
-						Label: fmt.Sprintf("ALL-%d.", d.ID),
-					}, wg)
+					go func() {
+						_ = f(api, d.ID, mgo.VHost{
+							Label: fmt.Sprintf("ALL-%d.", d.ID),
+						}, wg)
+					}()
 				}
 
 			}
 			waitChan <- struct{}{}
 			count++
 			go func(count int, d mgo.Domain) {
-				createResourcesPerVHost(api, d, funcs, wg)
+				_ = createResourcesPerVHost(api, d, funcs, wg)
 				<-waitChan
 			}(count, d)
 		}
@@ -168,7 +170,7 @@ func createResourcesPerVHost(api *mgo.API, domain mgo.Domain, funcs []func(*mgo.
 				waitChan <- struct{}{}
 				count++
 				go func(count int, v mgo.VHost, f func(*mgo.API, int, mgo.VHost, *sync.WaitGroup) error) {
-					f(api, domain.ID, v, wg)
+					_ = f(api, domain.ID, v, wg)
 					<-waitChan
 				}(count, v, f)
 			}

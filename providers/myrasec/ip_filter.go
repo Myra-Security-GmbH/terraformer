@@ -15,7 +15,7 @@ type IPFilterGenerator struct {
 }
 
 // createIPFilterResources
-func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -28,7 +28,7 @@ func (g *IPFilterGenerator) createIPFilterResources(api *mgo.API, domainId int, 
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		filters, err := api.ListIPFilters(domainId, vhost.Label, params)
+		filters, err := api.ListIPFilters(domainID, vhost.Label, params)
 		if err != nil {
 			return err
 		}

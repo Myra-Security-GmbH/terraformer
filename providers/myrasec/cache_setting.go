@@ -15,7 +15,7 @@ type CacheSettingGenerator struct {
 }
 
 // createCacheSettingResources
-func (g *CacheSettingGenerator) createCacheSettingResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *CacheSettingGenerator) createCacheSettingResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	page := 1
@@ -28,7 +28,7 @@ func (g *CacheSettingGenerator) createCacheSettingResources(api *mgo.API, domain
 	for {
 		params["page"] = strconv.Itoa(page)
 
-		settings, err := api.ListCacheSettings(domainId, vhost.Label, params)
+		settings, err := api.ListCacheSettings(domainID, vhost.Label, params)
 
 		if err != nil {
 			return err

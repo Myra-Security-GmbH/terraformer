@@ -15,12 +15,12 @@ type SettingsGenerator struct {
 }
 
 // createSettingResources
-func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainId int, vhost mgo.VHost, wg *sync.WaitGroup) error {
+func (g *SettingsGenerator) createSettingResources(api *mgo.API, domainID int, vhost mgo.VHost, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	params := map[string]string{}
 
-	s, err := api.ListSettingsFull(domainId, vhost.Label, params)
+	s, err := api.ListSettingsFull(domainID, vhost.Label, params)
 	if err != nil {
 		return err
 	}
