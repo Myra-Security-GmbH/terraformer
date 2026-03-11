@@ -6,33 +6,33 @@ import (
 	"github.com/GoogleCloudPlatform/terraformer/terraformutils"
 )
 
-// MyrasecProvider
-type MyrasecProvider struct {
+// Provider
+type Provider struct {
 	terraformutils.Provider
 }
 
 // Init
-func (p *MyrasecProvider) Init(args []string) error {
+func (p *Provider) Init(args []string) error {
 	return nil
 }
 
 // GetName
-func (p *MyrasecProvider) GetName() string {
+func (p *Provider) GetName() string {
 	return "myrasec"
 }
 
 // GetProviderData
-func (p *MyrasecProvider) GetProviderData(_ ...string) map[string]any {
+func (p *Provider) GetProviderData(_ ...string) map[string]any {
 	return map[string]any{}
 }
 
 // GetResourceConnections
-func (MyrasecProvider) GetResourceConnections() map[string]map[string][]string {
+func (Provider) GetResourceConnections() map[string]map[string][]string {
 	return map[string]map[string][]string{}
 }
 
 // GetSupportedService
-func (p *MyrasecProvider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
+func (p *Provider) GetSupportedService() map[string]terraformutils.ServiceGenerator {
 	return map[string]terraformutils.ServiceGenerator{
 		"cache_setting":     &CacheSettingGenerator{},
 		"dns_record":        &DNSGenerator{},
@@ -51,7 +51,7 @@ func (p *MyrasecProvider) GetSupportedService() map[string]terraformutils.Servic
 }
 
 // InitService
-func (p *MyrasecProvider) InitService(serviceName string, verbose bool) error {
+func (p *Provider) InitService(serviceName string, verbose bool) error {
 	var isSupported bool
 	if _, isSupported = p.GetSupportedService()[serviceName]; !isSupported {
 		return errors.New("myrasec: " + serviceName + " not supported service")

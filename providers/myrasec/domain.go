@@ -16,7 +16,7 @@ type DomainGenerator struct {
 }
 
 // createDomainResource
-func (g *DomainGenerator) createDomainResource(api *mgo.API, domain mgo.Domain, wg *sync.WaitGroup) error {
+func (g *DomainGenerator) createDomainResource(_ *mgo.API, domain mgo.Domain, wg *sync.WaitGroup) error {
 	defer wg.Done()
 
 	d := terraformutils.NewResource(
